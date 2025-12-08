@@ -17,11 +17,11 @@
         <!-- 1. Welcome Screen -->
         <div id="screen-welcome" class="screen active">
             <div class="logo">FoodPlease+</div>
-            <div style="flex:1;"></div> <!-- Spacer -->
+            <div style="flex:1;"></div>
             <p style="text-align:center; margin-bottom:20px;">Tu comida favorita, al instante.</p>
             <button onclick="goTo('screen-login')" class="primary w-full">Iniciar sesión</button>
             <button onclick="goTo('screen-register')" class="w-full">Registrarse</button>
-            <div style="flex:1;"></div> <!-- Spacer -->
+            <div style="flex:1;"></div>
         </div>
 
         <!-- 2. Login Screen -->
@@ -29,7 +29,7 @@
             <div class="header">
                 <button onclick="goTo('screen-welcome')" class="header-btn">← Volver</button>
                 <h2>Login</h2>
-                <div style="width:40px;"></div> <!-- visual balance -->
+                <div style="width:40px;"></div>
             </div>
             <div style="margin-top:20px;">
                 <div class="input-group mb-2">
@@ -69,7 +69,8 @@
                 <label>Tipo de Usuario</label>
                 <select id="user-type-select">
                     <option value="client">Cliente</option>
-                    <option value="admin">Administrador</option>
+                    <option value="owner">Dueño del Local</option>
+                    <option value="delivery">Repartidor</option>
                 </select>
             </div>
             <button onclick="goTo('screen-login')" class="primary w-full mt-4">Registrarse</button>
@@ -78,7 +79,7 @@
         <!-- === CLIENT SCREENS === -->
 
         <!-- 4. Client Home (Catalog) -->
-        <div id="screen-client-home" class="screen">
+        <div id="screen-client-home" class="screen has-nav">
             <div class="header">
                 <span style="font-weight:600;">Hola, Cliente</span>
                 <button onclick="goTo('screen-welcome')" class="header-btn"
@@ -92,7 +93,6 @@
             </div>
 
             <h3 class="mb-2">Menú</h3>
-            <!-- Product List -->
             <div class="product-item">
                 <div>
                     <strong style="display:block; margin-bottom:4px;">Hamburguesa Clásica</strong>
@@ -118,8 +118,20 @@
                     style="padding: 8px 16px; font-size:0.9em;">Agregar</button>
             </div>
 
-            <button onclick="goTo('screen-cart')" class="primary w-full mt-4" style="background:#1a1a1a;">Ver Carrito
-                (2)</button>
+            <div class="bottom-nav">
+                <button class="nav-item active" onclick="goTo('screen-client-home')">
+                    <span class="nav-icon">🏠</span>
+                    <span>Inicio</span>
+                </button>
+                <button class="nav-item" onclick="goTo('screen-cart')">
+                    <span class="nav-icon">🛒</span>
+                    <span>Carrito</span>
+                </button>
+                <button class="nav-item" onclick="goTo('screen-order-status')">
+                    <span class="nav-icon">📦</span>
+                    <span>Pedidos</span>
+                </button>
+            </div>
         </div>
 
         <!-- 5. Product Detail -->
@@ -138,27 +150,23 @@
                 <p class="mt-4">Deliciosa carne 100% vacuno con lechuga fresca, tomate, queso cheddar y nuestra salsa
                     especial de la casa.</p>
             </div>
-
             <div style="flex:1;"></div>
-
             <div
                 style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; background:#f3f4f6; padding:8px; border-radius:8px;">
                 <button style="border:none; background:white; width:40px; height:40px;">-</button>
                 <span style="font-weight:600; font-size:1.1rem;">1</span>
                 <button style="border:none; background:white; width:40px; height:40px;">+</button>
             </div>
-
-            <button onclick="goTo('screen-client-home')" class="primary w-full">Agregar al Carrito</button>
+            <button onclick="goTo('screen-cart')" class="primary w-full">Agregar al Carrito</button>
         </div>
 
         <!-- 6. Cart -->
-        <div id="screen-cart" class="screen">
+        <div id="screen-cart" class="screen has-nav">
             <div class="header">
-                <button onclick="goTo('screen-client-home')" class="header-btn">← Volver</button>
+                <div style="width:40px;"></div>
                 <h2>Carrito</h2>
                 <div style="width:40px;"></div>
             </div>
-
             <div>
                 <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
                     <div>
@@ -174,13 +182,26 @@
                     <strong>$2.00</strong>
                 </div>
             </div>
-
             <div style="margin-top:auto;">
                 <div style="display:flex; justify-content:space-between; margin-bottom:16px; font-size:1.1rem;">
                     <span>Total</span>
                     <strong>$10.50</strong>
                 </div>
                 <button onclick="goTo('screen-checkout')" class="primary w-full">Realizar Pedido</button>
+            </div>
+            <div class="bottom-nav">
+                <button class="nav-item" onclick="goTo('screen-client-home')">
+                    <span class="nav-icon">🏠</span>
+                    <span>Inicio</span>
+                </button>
+                <button class="nav-item active" onclick="goTo('screen-cart')">
+                    <span class="nav-icon">🛒</span>
+                    <span>Carrito</span>
+                </button>
+                <button class="nav-item" onclick="goTo('screen-order-status')">
+                    <span class="nav-icon">📦</span>
+                    <span>Pedidos</span>
+                </button>
             </div>
         </div>
 
@@ -193,17 +214,22 @@
             </div>
             <div class="input-group mb-2">
                 <label>Dirección de entrega</label>
-                <textarea rows="3" placeholder="Ej: Calle Falsa 123, Depto 4..."></textarea>
+                <select id="checkout-address-select" style="margin-bottom: 8px;">
+                    <option value="">Seleccionar guardada...</option>
+                    <option value="home">Casa (Av. Siempre Viva 742)</option>
+                    <option value="work">Trabajo (Calle Falsa 123)</option>
+                    <option value="other">Otra dirección...</option>
+                </select>
+                <textarea id="checkout-address-text" rows="3" placeholder="Ej: Calle Falsa 123, Depto 4..."></textarea>
             </div>
             <div class="input-group mb-2">
                 <label>Método de Pago</label>
                 <select>
                     <option>Tarjeta de Crédito (**** 1234)</option>
-                    <option>Efectivo contra entrega</option>
+                    <option>Efectivo con entrega</option>
                     <option>Paypal</option>
                 </select>
             </div>
-
             <div
                 style="margin-top:20px; padding:16px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px;">
                 <small style="color:#15803d;">Resumen</small>
@@ -212,24 +238,21 @@
                     <strong>$10.50</strong>
                 </div>
             </div>
-
             <div style="flex:1;"></div>
             <button onclick="goTo('screen-order-status')" class="primary w-full">Confirmar Pedido</button>
         </div>
 
         <!-- 8. Order Status -->
-        <div id="screen-order-status" class="screen">
+        <div id="screen-order-status" class="screen has-nav">
             <div class="header">
-                <button onclick="goTo('screen-client-home')" class="header-btn">Inicio</button>
+                <div style="width:40px;"></div>
                 <h2>Pedido #1234</h2>
                 <div style="width:40px;"></div>
             </div>
-
             <div style="text-align:center; margin:20px 0;">
                 <h3>¡Gracias por tu compra!</h3>
                 <p>Tu pedido está en proceso.</p>
             </div>
-
             <div style="margin-top:20px; padding:0 16px;">
                 <div class="timeline-item active">
                     <div class="dot"></div>
@@ -248,15 +271,29 @@
                     <span>Entregado</span>
                 </div>
             </div>
+            <div class="bottom-nav">
+                <button class="nav-item" onclick="goTo('screen-client-home')">
+                    <span class="nav-icon">🏠</span>
+                    <span>Inicio</span>
+                </button>
+                <button class="nav-item" onclick="goTo('screen-cart')">
+                    <span class="nav-icon">🛒</span>
+                    <span>Carrito</span>
+                </button>
+                <button class="nav-item active" onclick="goTo('screen-order-status')">
+                    <span class="nav-icon">📦</span>
+                    <span>Pedidos</span>
+                </button>
+            </div>
         </div>
 
 
-        <!-- === ADMIN SCREENS === -->
+        <!-- === OWNER SCREENS (DUEÑO) === -->
 
-        <!-- 9. Admin Dashboard -->
-        <div id="screen-admin-dashboard" class="screen">
+        <!-- 9. Owner Dashboard -->
+        <div id="screen-owner-dashboard" class="screen has-nav">
             <div class="header">
-                <span style="font-weight:600;">Admin Panel</span>
+                <span style="font-weight:600;">Panel Dueño</span>
                 <button onclick="goTo('screen-welcome')" class="header-btn"
                     style="color:var(--danger-color);">Salir</button>
             </div>
@@ -276,20 +313,38 @@
                 </div>
             </div>
 
-            <h3 class="mt-4 mb-2">Gestión</h3>
+            <h3 class="mt-4 mb-2">Accesos Rápidos</h3>
             <div class="grid-2">
-                <button onclick="goTo('screen-admin-products')" class="w-full" style="height:80px;">📦
-                    Productos</button>
-                <button onclick="goTo('screen-admin-orders')" class="w-full" style="height:80px;">📋 Pedidos</button>
+                <button onclick="goTo('screen-owner-products')" class="w-full"
+                    style="height:80px; font-size: 0.9em; background: #fff;">📦 Gestión Prod.</button>
+                <button onclick="goTo('screen-owner-create')" class="w-full"
+                    style="height:80px; font-size: 0.9em; background: #fff;">➕ Agregar Prod.</button>
+            </div>
+
+            <div class="bottom-nav">
+                <button class="nav-item active" onclick="goTo('screen-owner-dashboard')">
+                    <span class="nav-icon">📊</span>
+                    <span>Dash</span>
+                </button>
+                <button class="nav-item" onclick="goTo('screen-owner-products')">
+                    <span class="nav-icon">📦</span>
+                    <span>Prods</span>
+                </button>
+                <!-- Maybe orders aren't explicitly requested for owner in Bottom Nav, 
+                 but usuful. Let's keep it consistent. -->
+                <button class="nav-item" onclick="goTo('screen-welcome')"> <!-- Placeholder for future -->
+                    <span class="nav-icon">⚙️</span>
+                    <span>Ajustes</span>
+                </button>
             </div>
         </div>
 
         <!-- 10. Product List (CRUD) -->
-        <div id="screen-admin-products" class="screen">
+        <div id="screen-owner-products" class="screen has-nav">
             <div class="header">
-                <button onclick="goTo('screen-admin-dashboard')" class="header-btn">← Volver</button>
-                <h2>Productos</h2>
-                <button onclick="goTo('screen-admin-create')" class="header-btn" style="font-size:1.5rem;">+</button>
+                <div style="width:40px;"></div>
+                <h2>Mis Productos</h2>
+                <button onclick="goTo('screen-owner-create')" class="header-btn" style="font-size:1.5rem;">+</button>
             </div>
 
             <div class="card" style="padding:0; overflow:hidden;">
@@ -297,7 +352,7 @@
                     <thead>
                         <tr style="background:#f9fafb;">
                             <th>Nombre</th>
-                            <th>Precio</th>
+                            <th>$</th>
                             <th style="text-align:right;">Acciones</th>
                         </tr>
                     </thead>
@@ -306,28 +361,45 @@
                             <td>Hamburguesa</td>
                             <td>$8.5</td>
                             <td style="text-align:right;">
-                                <button onclick="goTo('screen-admin-edit')"
+                                <button onclick="goTo('screen-owner-edit')"
                                     style="padding: 4px 8px; font-size:0.8rem;">Edit</button>
+                                <button style="padding: 4px 8px; font-size:0.8rem; color:red;">X</button>
                             </td>
                         </tr>
                         <tr>
                             <td>Pizzeta</td>
                             <td>$10.0</td>
                             <td style="text-align:right;">
-                                <button onclick="goTo('screen-admin-edit')"
+                                <button onclick="goTo('screen-owner-edit')"
                                     style="padding: 4px 8px; font-size:0.8rem;">Edit</button>
+                                <button style="padding: 4px 8px; font-size:0.8rem; color:red;">X</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
+            <div class="bottom-nav">
+                <button class="nav-item" onclick="goTo('screen-owner-dashboard')">
+                    <span class="nav-icon">📊</span>
+                    <span>Dash</span>
+                </button>
+                <button class="nav-item active" onclick="goTo('screen-owner-products')">
+                    <span class="nav-icon">📦</span>
+                    <span>Prods</span>
+                </button>
+                <button class="nav-item" onclick="goTo('screen-welcome')">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Ajustes</span>
+                </button>
+            </div>
         </div>
 
         <!-- 11. Create Product -->
-        <div id="screen-admin-create" class="screen">
+        <div id="screen-owner-create" class="screen">
             <div class="header">
-                <button onclick="goTo('screen-admin-products')" class="header-btn">← Volver</button>
-                <h2>Crear Producto</h2>
+                <button onclick="goTo('screen-owner-products')" class="header-btn">← Volver</button>
+                <h2>Agregar</h2>
                 <div style="width:40px;"></div>
             </div>
             <div class="input-group mb-2">
@@ -337,6 +409,10 @@
             <div class="input-group mb-2">
                 <label>Descripción</label>
                 <textarea rows="3"></textarea>
+            </div>
+            <div class="input-group mb-2">
+                <label>Subir Imagen</label>
+                <input type="file" accept="image/*">
             </div>
             <div class="grid-2">
                 <div class="input-group mb-2">
@@ -352,14 +428,14 @@
                 <input type="checkbox" style="width:auto; margin:0;"> <label style="margin:0;">Producto
                     Disponible</label>
             </div>
-            <button onclick="goTo('screen-admin-products')" class="primary w-full mt-4">Guardar Producto</button>
+            <button onclick="goTo('screen-owner-products')" class="primary w-full mt-4">Guardar Producto</button>
         </div>
 
         <!-- 12. Edit Product -->
-        <div id="screen-admin-edit" class="screen">
+        <div id="screen-owner-edit" class="screen">
             <div class="header">
-                <button onclick="goTo('screen-admin-products')" class="header-btn">← Volver</button>
-                <h2>Editar Producto</h2>
+                <button onclick="goTo('screen-owner-products')" class="header-btn">← Volver</button>
+                <h2>Editar</h2>
                 <div style="width:40px;"></div>
             </div>
             <div class="input-group mb-2">
@@ -369,6 +445,10 @@
             <div class="input-group mb-2">
                 <label>Descripción</label>
                 <textarea rows="3">Carne 100% real...</textarea>
+            </div>
+            <div class="input-group mb-2">
+                <label>Subir Imagen</label>
+                <input type="file" accept="image/*">
             </div>
             <div class="grid-2">
                 <div class="input-group mb-2">
@@ -384,40 +464,122 @@
                 <input type="checkbox" checked style="width:auto; margin:0;"> <label style="margin:0;">Producto
                     Disponible</label>
             </div>
-            <button onclick="goTo('screen-admin-products')" class="primary w-full mt-4">Actualizar Producto</button>
+            <button onclick="goTo('screen-owner-products')" class="primary w-full mt-4">Actualizar</button>
         </div>
 
-        <!-- 13. Order Management -->
-        <div id="screen-admin-orders" class="screen">
+        <!-- === DELIVERY SCREENS (REPARTIDOR) === -->
+
+        <!-- 13. Delivery Home (Assigned Orders) -->
+        <div id="screen-delivery-home" class="screen has-nav">
             <div class="header">
-                <button onclick="goTo('screen-admin-dashboard')" class="header-btn">← Volver</button>
-                <h2>Pedidos</h2>
-                <div style="width:40px;"></div>
+                <span style="font-weight:600;">Hola, Repartidor</span>
+                <div>
+                    <button onclick="openModal('modal-new-order')"
+                        style="padding: 4px 8px; font-size: 0.8em; margin-right: 8px;">🔔 Simular</button>
+                    <button onclick="goTo('screen-welcome')" class="header-btn"
+                        style="color:var(--danger-color);">Salir</button>
+                </div>
             </div>
 
-            <div class="card">
-                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                    <strong>#1234 - Juan Perez</strong>
-                    <span style="font-weight:600;">$25.00</span>
-                </div>
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span
-                        style="color:var(--success-color); background:#ecfdf5; padding:2px 8px; border-radius:4px; font-size:0.85rem;">En
-                        Preparación</span>
-                    <button style="padding:4px 8px; font-size:0.8rem;">Cambiar Estado</button>
-                </div>
-            </div>
+            <h3 class="mb-2">Pedidos Asignados</h3>
 
             <div class="card">
                 <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
                     <strong>#1235 - Ana Gomez</strong>
-                    <span style="font-weight:600;">$12.50</span>
+                    <span style="color:var(--primary-color);">En Camino</span>
                 </div>
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span
-                        style="color:var(--primary-color); background:#eff6ff; padding:2px 8px; border-radius:4px; font-size:0.85rem;">En
-                        Camino</span>
-                    <button style="padding:4px 8px; font-size:0.8rem;">Cambiar Estado</button>
+                <p style="font-size:0.9rem; margin-bottom:8px;">📍 Av. Libertador 4500, 3B</p>
+                <button onclick="goTo('screen-delivery-detail')" class="primary w-full" style="font-size:0.9em;">Ver
+                    Detalles</button>
+            </div>
+
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <strong>#1238 - Carlos Ruiz</strong>
+                    <span style="color:#f59e0b;">Listo para retirar</span>
+                </div>
+                <p style="font-size:0.9rem; margin-bottom:8px;">📍 Calle 5 esq. 4</p>
+                <button onclick="goTo('screen-delivery-detail')" class="primary w-full" style="font-size:0.9em;">Ver
+                    Detalles</button>
+            </div>
+
+            <div class="bottom-nav">
+                <button class="nav-item active" onclick="goTo('screen-delivery-home')">
+                    <span class="nav-icon">🛵</span>
+                    <span>Pedidos</span>
+                </button>
+                <button class="nav-item" onclick="goTo('screen-welcome')">
+                    <span class="nav-icon">👤</span>
+                    <span>Perfil</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 14. Delivery Detail -->
+        <div id="screen-delivery-detail" class="screen">
+            <div class="header">
+                <button onclick="goTo('screen-delivery-home')" class="header-btn">← Volver</button>
+                <h2>Pedido #1235</h2>
+                <div style="width:40px;"></div>
+            </div>
+
+            <div class="card">
+                <h4 class="mb-2">Detalle del Cliente</h4>
+                <p><strong>Cliente:</strong> Ana Gomez</p>
+                <p><strong>Dirección:</strong> Av. Libertador 4500, 3B</p>
+                <p><strong>Tel:</strong> +54 9 11 1234 5678</p>
+            </div>
+
+            <div class="card">
+                <h4 class="mb-2">Productos</h4>
+                <div style="display:flex; justify-content:space-between;">
+                    <span>1x Pizzeta</span>
+                    <span>$10.00</span>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                    <span>1x Refresco</span>
+                    <span>$2.00</span>
+                </div>
+                <hr style="margin:10px 0; border:0; border-top:1px solid #eee;">
+                <div style="display:flex; justify-content:space-between; font-weight:bold;">
+                    <span>Total a Cobrar</span>
+                    <span>$12.00</span>
+                </div>
+            </div>
+
+            <h3 class="mt-4 mb-2">Actualizar Estado</h3>
+            <button class="primary w-full mb-2" style="background:var(--primary-color);">📍 En Camino</button>
+            <button class="primary w-full" style="background:var(--success-color);">✅ Entregado</button>
+
+        </div>
+
+        <!-- New Order Modal -->
+        <div id="modal-new-order" class="modal-overlay">
+            <div class="modal-content">
+                <div style="text-align: center; margin-bottom: 16px;">
+                    <span style="font-size: 3rem;">🔔</span>
+                    <h3 style="margin-top: 8px;">¡Nuevo Pedido!</h3>
+                </div>
+
+                <div
+                    style="background: #fdf2f8; padding: 12px; border-radius: 8px; border: 1px dashed var(--primary-color); margin-bottom: 16px;">
+                    <strong style="display: block; color: var(--primary-color);">Pedido #1240</strong>
+                    <p style="font-size: 0.9em; margin-top: 4px;">Pizzeta x2, Coca-Cola x1</p>
+                </div>
+
+                <div style="margin-bottom: 16px;">
+                    <label style="font-size: 0.9em; font-weight: bold;">Instrucciones Especiales:</label>
+                    <p
+                        style="font-style: italic; background: #eee; padding: 8px; border-radius: 4px; font-size: 0.9em; margin-top: 4px;">
+                        "El timbre no funciona, por favor llamar al celular al llegar. Cuidado con el perro en la
+                        entrada."
+                    </p>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="closeModal('modal-new-order')" class="primary w-full">Aceptar</button>
+                    <button onclick="closeModal('modal-new-order')" class="w-full"
+                        style="background: white; color: var(--text-secondary);">Rechazar</button>
                 </div>
             </div>
         </div>
