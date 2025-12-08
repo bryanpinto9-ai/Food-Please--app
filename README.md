@@ -6,7 +6,7 @@ FoodPlease+ es una versión mínimamente viable (MVP) de una aplicación de pedi
 
 ## Requisitos
 - Navegador web actualizado (Chrome, Edge, Firefox).
-- Conexión a Internet para descargar el repositorio.
+- Conexión a Internet para descargar el repositorio..
 
 ---
 
