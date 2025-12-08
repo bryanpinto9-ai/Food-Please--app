@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodPlease+ Wireframe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="app-container">
+
+        <!-- === GENERAL SCREENS === -->
+
+        <!-- 1. Welcome Screen -->
+        <div id="screen-welcome" class="screen active">
+            <div class="logo">FoodPlease+</div>
+            <div style="flex:1;"></div> <!-- Spacer -->
+            <p style="text-align:center; margin-bottom:20px;">Tu comida favorita, al instante.</p>
+            <button onclick="goTo('screen-login')" class="primary w-full">Iniciar sesión</button>
+            <button onclick="goTo('screen-register')" class="w-full">Registrarse</button>
+            <div style="flex:1;"></div> <!-- Spacer -->
+        </div>
+
+        <!-- 2. Login Screen -->
+        <div id="screen-login" class="screen">
+            <div class="header">
+                <button onclick="goTo('screen-welcome')" class="header-btn">← Volver</button>
+                <h2>Login</h2>
+                <div style="width:40px;"></div> <!-- visual balance -->
+            </div>
+            <div style="margin-top:20px;">
+                <div class="input-group mb-2">
+                    <label>Correo electrónico</label>
+                    <input type="email" placeholder="usuario@example.com" value="cliente@test.com">
+                </div>
+                <div class="input-group mb-2">
+                    <label>Contraseña</label>
+                    <input type="password" placeholder="••••••" value="123456">
+                </div>
+            </div>
+            <div style="margin-top:auto;">
+                <button onclick="handleLogin()" class="primary w-full">Ingresar</button>
+            </div>
+        </div>
+
+        <!-- 3. Register Screen -->
+        <div id="screen-register" class="screen">
+            <div class="header">
+                <button onclick="goTo('screen-welcome')" class="header-btn">← Volver</button>
+                <h2>Registro</h2>
+                <div style="width:40px;"></div>
+            </div>
+            <div class="input-group mb-2">
+                <label>Nombre completo</label>
+                <input type="text" placeholder="Juan Pérez">
+            </div>
+            <div class="input-group mb-2">
+                <label>Correo electrónico</label>
+                <input type="email" placeholder="email@example.com">
+            </div>
+            <div class="input-group mb-2">
+                <label>Contraseña</label>
+                <input type="password" placeholder="••••••">
+            </div>
+            <div class="input-group mb-2">
+                <label>Tipo de Usuario</label>
+                <select id="user-type-select">
+                    <option value="client">Cliente</option>
+                    <option value="admin">Administrador</option>
+                </select>
+            </div>
+            <button onclick="goTo('screen-login')" class="primary w-full mt-4">Registrarse</button>
+        </div>
+
+        <!-- === CLIENT SCREENS === -->
+
+        <!-- 4. Client Home (Catalog) -->
+        <div id="screen-client-home" class="screen">
+            <div class="header">
+                <span style="font-weight:600;">Hola, Cliente</span>
+                <button onclick="goTo('screen-welcome')" class="header-btn"
+                    style="color:var(--danger-color);">Salir</button>
+            </div>
+            <!-- Banner -->
+            <div
+                style="background:var(--text-primary); color:white; padding:24px; border-radius:12px; text-align:center; margin-bottom:16px;">
+                <h3 style="color:white; margin-bottom:4px;">50% OFF</h3>
+                <span style="font-size:0.9em; opacity:0.8;">En tu primera compra</span>
+            </div>
+
+            <h3 class="mb-2">Menú</h3>
+            <!-- Product List -->
+            <div class="product-item">
+                <div>
+                    <strong style="display:block; margin-bottom:4px;">Hamburguesa Clásica</strong>
+                    <span style="color:var(--text-secondary);">$8.50</span>
+                </div>
+                <button onclick="goTo('screen-product-detail')" class="primary"
+                    style="padding: 8px 16px; font-size:0.9em;">Agregar</button>
+            </div>
+            <div class="product-item">
+                <div>
+                    <strong style="display:block; margin-bottom:4px;">Pizzeta</strong>
+                    <span style="color:var(--text-secondary);">$10.00</span>
+                </div>
+                <button onclick="goTo('screen-product-detail')" class="primary"
+                    style="padding: 8px 16px; font-size:0.9em;">Agregar</button>
+            </div>
+            <div class="product-item">
+                <div>
+                    <strong style="display:block; margin-bottom:4px;">Ensalada César</strong>
+                    <span style="color:var(--text-secondary);">$7.00</span>
+                </div>
+                <button onclick="goTo('screen-product-detail')" class="primary"
+                    style="padding: 8px 16px; font-size:0.9em;">Agregar</button>
+            </div>
+
+            <button onclick="goTo('screen-cart')" class="primary w-full mt-4" style="background:#1a1a1a;">Ver Carrito
+                (2)</button>
+        </div>
+
+        <!-- 5. Product Detail -->
+        <div id="screen-product-detail" class="screen">
+            <div class="header">
+                <button onclick="goTo('screen-client-home')" class="header-btn">← Atrás</button>
+                <h2>Detalle</h2>
+                <div style="width:40px;"></div>
+            </div>
+            <div class="product-image-placeholder">Imagen del Producto</div>
+            <div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                    <h3>Hamburguesa Clásica</h3>
+                    <h3 style="color:var(--primary-color);">$8.50</h3>
+                </div>
+                <p class="mt-4">Deliciosa carne 100% vacuno con lechuga fresca, tomate, queso cheddar y nuestra salsa
+                    especial de la casa.</p>
+            </div>
+
+            <div style="flex:1;"></div>
+
+            <div
+                style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; background:#f3f4f6; padding:8px; border-radius:8px;">
+                <button style="border:none; background:white; width:40px; height:40px;">-</button>
+                <span style="font-weight:600; font-size:1.1rem;">1</span>
+                <button style="border:none; background:white; width:40px; height:40px;">+</button>
+            </div>
+
+            <button onclick="goTo('screen-client-home')" class="primary w-full">Agregar al Carrito</button>
+        </div>
+
+        <!-- 6. Cart -->
+        <div id="screen-cart" class="screen">
+            <div class="header">
+                <button onclick="goTo('screen-client-home')" class="header-btn">← Volver</button>
+                <h2>Carrito</h2>
+                <div style="width:40px;"></div>
+            </div>
+
+            <div>
+                <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <strong>1x Hamburguesa</strong>
+                        <div style="font-size:0.8rem; color:var(--text-secondary);">Sin cebolla</div>
+                    </div>
+                    <strong>$8.50</strong>
+                </div>
+                <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <strong>1x Refresco</strong>
+                    </div>
+                    <strong>$2.00</strong>
+                </div>
+            </div>
+
+            <div style="margin-top:auto;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:16px; font-size:1.1rem;">
+                    <span>Total</span>
+                    <strong>$10.50</strong>
+                </div>
+                <button onclick="goTo('screen-checkout')" class="primary w-full">Realizar Pedido</button>
+            </div>
+        </div>
+
+        <!-- 7. Order Confirmation -->
+        <div id="screen-checkout" class="screen">
+            <div class="header">
+                <button onclick="goTo('screen-cart')" class="header-btn">← Volver</button>
+                <h2>Confirmar</h2>
+                <div style="width:40px;"></div>
+            </div>
+            <div class="input-group mb-2">
+                <label>Dirección de entrega</label>
+                <textarea rows="3" placeholder="Ej: Calle Falsa 123, Depto 4..."></textarea>
+            </div>
+            <div class="input-group mb-2">
+                <label>Método de Pago</label>
+                <select>
+                    <option>Tarjeta de Crédito (**** 1234)</option>
+                    <option>Efectivo contra entrega</option>
+                    <option>Paypal</option>
+                </select>
+            </div>
+
+            <div
+                style="margin-top:20px; padding:16px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px;">
+                <small style="color:#15803d;">Resumen</small>
+                <div style="display:flex; justify-content:space-between; margin-top:4px;">
+                    <strong>Total a Pagar</strong>
+                    <strong>$10.50</strong>
+                </div>
+            </div>
+
+            <div style="flex:1;"></div>
+            <button onclick="goTo('screen-order-status')" class="primary w-full">Confirmar Pedido</button>
+        </div>
+
+        <!-- 8. Order Status -->
+        <div id="screen-order-status" class="screen">
+            <div class="header">
+                <button onclick="goTo('screen-client-home')" class="header-btn">Inicio</button>
+                <h2>Pedido #1234</h2>
+                <div style="width:40px;"></div>
+            </div>
+
+            <div style="text-align:center; margin:20px 0;">
+                <h3>¡Gracias por tu compra!</h3>
+                <p>Tu pedido está en proceso.</p>
+            </div>
+
+            <div style="margin-top:20px; padding:0 16px;">
+                <div class="timeline-item active">
+                    <div class="dot"></div>
+                    <span>Pedido Recibido</span>
+                </div>
+                <div class="timeline-item active">
+                    <div class="dot"></div>
+                    <span>En Preparación</span>
+                </div>
+                <div class="timeline-item">
+                    <div class="dot"></div>
+                    <span>En Camino</span>
+                </div>
+                <div class="timeline-item">
+                    <div class="dot"></div>
+                    <span>Entregado</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- === ADMIN SCREENS === -->
+
+        <!-- 9. Admin Dashboard -->
+        <div id="screen-admin-dashboard" class="screen">
+            <div class="header">
+                <span style="font-weight:600;">Admin Panel</span>
+                <button onclick="goTo('screen-welcome')" class="header-btn"
+                    style="color:var(--danger-color);">Salir</button>
+            </div>
+
+            <div class="card text-center">
+                <p>Total Pedidos</p>
+                <span style="font-size:2.5rem; font-weight:700; color:var(--primary-color);">145</span>
+            </div>
+            <div class="grid-2">
+                <div class="card text-center">
+                    <p>Activos</p>
+                    <span style="font-size:1.8rem; font-weight:600;">32</span>
+                </div>
+                <div class="card text-center">
+                    <p>Ventas Hoy</p>
+                    <span style="font-size:1.8rem; font-weight:600;">$1.2k</span>
+                </div>
+            </div>
+
+            <h3 class="mt-4 mb-2">Gestión</h3>
+            <div class="grid-2">
+                <button onclick="goTo('screen-admin-products')" class="w-full" style="height:80px;">📦
+                    Productos</button>
+                <button onclick="goTo('screen-admin-orders')" class="w-full" style="height:80px;">📋 Pedidos</button>
+            </div>
+        </div>
+
+        <!-- 10. Product List (CRUD) -->
+        <div id="screen-admin-products" class="screen">
+            <div class="header">
+                <button onclick="goTo('screen-admin-dashboard')" class="header-btn">← Volver</button>
+                <h2>Productos</h2>
+                <button onclick="goTo('screen-admin-create')" class="header-btn" style="font-size:1.5rem;">+</button>
+            </div>
+
+            <div class="card" style="padding:0; overflow:hidden;">
+                <table>
+                    <thead>
+                        <tr style="background:#f9fafb;">
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th style="text-align:right;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hamburguesa</td>
+                            <td>$8.5</td>
+                            <td style="text-align:right;">
+                                <button onclick="goTo('screen-admin-edit')"
+                                    style="padding: 4px 8px; font-size:0.8rem;">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Pizzeta</td>
+                            <td>$10.0</td>
+                            <td style="text-align:right;">
+                                <button onclick="goTo('screen-admin-edit')"
+                                    style="padding: 4px 8px; font-size:0.8rem;">Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 11. Create Product -->
+        <div id="screen-admin-create" class="screen">
+            <div class="header">
+                <button onclick="goTo('screen-admin-products')" class="header-btn">← Volver</button>
+                <h2>Crear Producto</h2>
+                <div style="width:40px;"></div>
+            </div>
+            <div class="input-group mb-2">
+                <label>Nombre</label>
+                <input type="text">
+            </div>
+            <div class="input-group mb-2">
+                <label>Descripción</label>
+                <textarea rows="3"></textarea>
+            </div>
+            <div class="grid-2">
+                <div class="input-group mb-2">
+                    <label>Precio ($)</label>
+                    <input type="number">
+                </div>
+                <div class="input-group mb-2">
+                    <label>Stock</label>
+                    <input type="number">
+                </div>
+            </div>
+            <div style="margin:16px 0; display:flex; align-items:center; gap:8px;">
+                <input type="checkbox" style="width:auto; margin:0;"> <label style="margin:0;">Producto
+                    Disponible</label>
+            </div>
+            <button onclick="goTo('screen-admin-products')" class="primary w-full mt-4">Guardar Producto</button>
+        </div>
+
+        <!-- 12. Edit Product -->
+        <div id="screen-admin-edit" class="screen">
+            <div class="header">
+                <button onclick="goTo('screen-admin-products')" class="header-btn">← Volver</button>
+                <h2>Editar Producto</h2>
+                <div style="width:40px;"></div>
+            </div>
+            <div class="input-group mb-2">
+                <label>Nombre</label>
+                <input type="text" value="Hamburguesa">
+            </div>
+            <div class="input-group mb-2">
+                <label>Descripción</label>
+                <textarea rows="3">Carne 100% real...</textarea>
+            </div>
+            <div class="grid-2">
+                <div class="input-group mb-2">
+                    <label>Precio ($)</label>
+                    <input type="number" value="8.50">
+                </div>
+                <div class="input-group mb-2">
+                    <label>Stock</label>
+                    <input type="number" value="100">
+                </div>
+            </div>
+            <div style="margin:16px 0; display:flex; align-items:center; gap:8px;">
+                <input type="checkbox" checked style="width:auto; margin:0;"> <label style="margin:0;">Producto
+                    Disponible</label>
+            </div>
+            <button onclick="goTo('screen-admin-products')" class="primary w-full mt-4">Actualizar Producto</button>
+        </div>
+
+        <!-- 13. Order Management -->
+        <div id="screen-admin-orders" class="screen">
+            <div class="header">
+                <button onclick="goTo('screen-admin-dashboard')" class="header-btn">← Volver</button>
+                <h2>Pedidos</h2>
+                <div style="width:40px;"></div>
+            </div>
+
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <strong>#1234 - Juan Perez</strong>
+                    <span style="font-weight:600;">$25.00</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span
+                        style="color:var(--success-color); background:#ecfdf5; padding:2px 8px; border-radius:4px; font-size:0.85rem;">En
+                        Preparación</span>
+                    <button style="padding:4px 8px; font-size:0.8rem;">Cambiar Estado</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <strong>#1235 - Ana Gomez</strong>
+                    <span style="font-weight:600;">$12.50</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span
+                        style="color:var(--primary-color); background:#eff6ff; padding:2px 8px; border-radius:4px; font-size:0.85rem;">En
+                        Camino</span>
+                    <button style="padding:4px 8px; font-size:0.8rem;">Cambiar Estado</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
